@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>注射の場所</title>
+
+<!-----------------------------
+<body onload="showDialog()">
+<body onload="startSpeechRecognition_2()">
+------------------------------->
+
+<body onload="">
+<!-----------------------------------------------------
+<p>音声認識もできるテキストエディター<br>
+<span style="color: red;"><b>自己責任でご使用ください。<br>
+このページを使用して何か問題が発生しても<br>
+このページの作者及び管理人は一切責任を負いません。</b></span><br>
+秘密にすべきことは入力しないでください。<br>
+Chromeやedgeの標準的な音声認識機能を利用しているので<br>
+音声認識は外部サーバーで実行されます。</p>
+
+
+  <button id="custom-button" onclick="openFileInput()">読込</button>
+<button id='saveas'  onclick="bangumihyou_hozon()"   >保存</button>
+　<input type="file" id="file-input" style="display: none;" onchange="handleFileSelect(event)">
+
+  <button onclick="undo()">←戻る</button>
+  <button onclick="redo()">進む→</button>
+------------------------------------------------------->
+  <button style=" height:100px; background-color:yellow;" onclick="zenbun_sakujyo()">(ﾉToT)ﾉ ┫:･'.::･リセット</button>
+<!-------------------------------------------------------------
+　<button onclick="searchGoogle()">
+    <span>全文を</span>
+<b>
+    <span style="color: blue;">G</span>
+    <span style="color: red;">o</span>
+    <span style="color: orange;">o</span>
+    <span style="color: blue;">g</span>
+    <span style="color: green;">l</span>
+    <span style="color: red;">e</span>
+</b>a
+    <span>で検索</span>
+  </button>
+  <button onclick="searchBing()">
+    <span>全文を</span>
+<b>    <span style="color: mediumblue;">B</span>
+    <span style="color: dodgerblue;">i</span>
+    <span style="color: lightskyblue;">n</span>
+    <span style="color: limegreen;">g</span>
+</b>    <span>で検索</span>
+  </button>
+
+　<button onclick="textBox_copy()">全文をコピー</button>
+
+<br>
+
+---------------------------------------------------------->
+
+  <button style="height:100px; background-color:pink;   font-size:20pt;  " onclick="startSpeechRecognition_2()">音声認識開始</button>
+  <button style="height:100px; background-color:mediumorchid; font-size:20pt; " onclick="stopSpeechRecognition();startSpeechRecognition_2();">催促</button>
+  <!--button onclick="startSpeechRecognition_1()">音声認識開始(単回)</button-->
+  <button style="height:100px; background-color:lightblue; font-size:20pt; " onclick="stopSpeechRecognition()">音声認識停止</button>
+<br>
+  <textarea id="output_0" rows="1" cols="55" style="font-size:20pt;" ></textarea><br>
+
+<!-----------------------------------------------------
+　<button onclick="AllremoveBlanks()">全文の空欄削除</button>
+  <button onclick="zentai_zenkaku2hankaku()">全文の全角英数を半角に</button>
+  <button onclick="zentai_hankaku2zenkaku()">全文の半角英数を全角に</button>
+<br>
+
+
+
+<div style="  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height:306px;">
+
+<div style="  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height:306px;">
+
+  <button onclick="writeToTextArea('、')">、</button>
+  <button onclick="writeToTextArea('。')">。</button>
+  <button onclick="writeToTextArea('０')">０</button>
+  <button onclick="writeToTextArea('１')">１</button>
+  <button onclick="writeToTextArea('２')">２</button>
+  <button onclick="writeToTextArea('３')">３</button>
+  <button onclick="writeToTextArea('４')">４</button>
+  <button onclick="writeToTextArea('５')">５</button>
+  <button onclick="writeToTextArea('６')">６</button>
+  <button onclick="writeToTextArea('７')">７</button>
+  <button onclick="writeToTextArea('８')">８</button>
+  <button onclick="writeToTextArea('９')">９</button>
+
+
+  <button onclick="writeToTextArea('（')">（　</button>
+  <button onclick="writeToTextArea('）')">　）</button>
+  <button onclick="writeToTextArea('「')">「　</button>
+  <button onclick="writeToTextArea('」')">　」</button>
+  <button onclick="writeToTextArea('ー')">ー　</button>
+  <button onclick="writeToTextArea('＠')">＠　</button>
+
+
+  <button onclick="writeToTextArea('？')">？　</button>
+  <button onclick="writeToTextArea('／')">／　</button>
+  <button onclick="writeToTextArea('￥')">￥　</button>
+
+  <button onclick="writeToTextArea('＿')">＿　</button>
+
+  <button onclick="writeToTextArea('\n')">改行</button>
+  <button onclick="writeToTextArea('　')">空欄</button>
+
+------------------------------------------------------------>
+  <button id="output_b" style="font-size:18pt; height:400px; width:800px;  " onclick=""></button><br>
+  <textarea id="output" rows="23" cols="63" style="font-size:18pt;" ></textarea><br>
+<!-------------------------------------------------------------------
+</div>
+</div>
+
+
+<button style="background-color:yellow;"  onclick="mae_sakujyo()">前削除</button>
+<button style="background-color:yellow;"  onclick="writeToTextArea('')">選択部を削除</button>
+<button style="background-color:yellow;"  onclick="ato_sakujyo()">後削除</button>
+
+　<button onclick="removeBlanks()">選択部の空欄削除</button>
+<button onclick="select_zenkaku2hankaku()">選択部の全角英数を半角に</button>
+  <button onclick="select_hankaku2zenkaku()">選択部の半角英数を全角に</button>
+
+
+<br>
+<button onclick="selectAllText()">全文選択</button>
+<button onclick="yomiage_kakunin()">選択部の読み上げ開始</button>
+<button onclick="yomiage_stop()">選択部の読み上げ停止</button>
+
+　<button onclick="select_searchGoogle()">
+    <span>選択部を</span>
+<b>    <span style="color: blue;"  >G</span>
+    <span style="color: red;"   >o</span>
+    <span style="color: orange;">o</span>
+    <span style="color: blue;"  >g</span>
+    <span style="color: green;" >l</span>
+    <span style="color: red;"   >e</span>
+</b>    <span>で検索</span>
+  </button>
+  <button onclick="select_searchBing()">
+    <span>選択部を</span>
+<b>
+    <span style="color: mediumblue;">B</span>
+    <span style="color: dodgerblue;">i</span>
+    <span style="color: lightskyblue;">n</span>
+    <span style="color: limegreen;">g</span>
+</b>
+    <span>で検索</span>
+  </button>
+-------------------------------------------------------------------->
+<br>
+
+<!-- ***************************************************************************************************************************** --> 
+<!-- ***************************************************************************************************************************** -->
+ <script>
+    function showDialog() {
+      //開始時に表示する 警告文===================================================================
+      var result = confirm("本ページは音声認識もできるテキストエディターです。"+"\n\n"+ "本ページの利用によりいかなる不都合が生じても、本ページの作者および管理者は一切の責任を負いません。以上ご了承されたらOKボタンを押しご利用ださい。ご了承されない場合ばキャンセルボタンを押し、本ページを利用せず終了してください。");
+      if (result) {
+        // OKがクリックされた場合
+        // 何もしない（ページはそのまま表示される）
+      } else {
+        // キャンセルがクリックされた場合
+        window.close(); // ページを閉じる
+      }
+    //開始時に表示する 警告文=ここまで==================================================================
+
+    }
+
+
+
+   // 音声認識オブジェクト
+
+var kensakugokuAry = [];
+
+    let recognition;
+    var kurikaesi_flg = 0;//1なら音声認識を繰り返す
+
+    var textBox_0 = document.getElementById('output_0');
+    var textBox = document.getElementById('output');
+    var textBox_b = document.getElementById('output_b');
+
+
+ //     textBox_b.textContent = '押されました';
+
+
+
+
+    textBox_0.inputMode = "kana";//textBoxの初期入力モードは、この設定をしても、IME が平仮名だと ひらがな入力になりIME が半角英数だと半角英数字入力になる
+    textBox.inputMode = "kana";//textBoxの初期入力モードは、この設定をしても、IME が平仮名だと ひらがな入力になりIME が半角英数だと半角英数字入力になる
+
+    var startPos = 0;//次に音声認識の結果が書かれるときに上書きされる範囲の開始位置
+    var endPos = 0;//次に音声認識の結果が書かれるときに上書きされる範囲の終了位置
+
+
+    //=====ここから undo,redo用=================================================================
+    var undoStack = [];
+    var redoStack = [];
+    //=====ここまで undo,redo用=================================================================
+
+    //=====ここから undo,redo用=================================================================
+      undoStack.push(textBox.value);
+      redoStack = [];
+    //=====ここまで undo,redo用=================================================================
+
+
+
+
+    // ブラウザが音声認識をサポートしているかチェック
+ //  if ('webkitSpeechRecognition' in window) {
+      // 音声認識オブジェクトの作成
+      recognition = new webkitSpeechRecognition();
+
+      // 認識言語を設定（日本語に設定）
+      recognition.lang = 'ja-JP';
+            recognition.interimResults = false;//true か false
+            recognition.continuous = false;
+
+     //======================================================================
+      // 音声認識開始時のイベントハンドラ
+      //recognition.onstart = function(event) {
+        //textBox.style.backgroundColor = "#FF9966"; // 背景色をオレンジ色にする
+      //};
+
+     //======================================================================
+      // 音声認識終了時のイベントハンドラ
+      recognition.onend = function(event) {
+       if (kurikaesi_flg == 2){
+         recognition.start();
+       }else if (kurikaesi_flg == 1){
+         kurikaesi_flg = 0;
+         textBox_0.style.backgroundColor = "white"; // 背景色を白色にする
+         textBox.style.backgroundColor = "white"; // 背景色を白色にする
+       }
+     };
+
+     //======================================================================
+      // 認識結果の取得時に実行されるイベントハンドラ
+      recognition.onresult = function(event) {
+        // 認識結果を取得
+        const transcript = event.results[0][0].transcript;
+
+
+	if(getLastThreeCharacters(transcript)=="を検索"){
+
+		//音声解釈の結果から検索すべき語句の配列kensakugokuAryを求める
+		kensakugokuAry = [];
+
+
+		kensakugokuAry.push(hiragana2katakana(kuuhaku_sakujyo(removeLastThreeCharacters(transcript))));//20231108空欄削除とカタカナに変換を実施
+		kensakugokuAry.push(kuuhaku_sakujyo(removeLastThreeCharacters(transcript)));//20231108空欄削除を実施
+
+
+
+		//kensakugokuAry.push(kuuhaku_sakujyo("テルモ"));//
+	        textBox_0.value = kensakugokuAry[0];
+
+		let damenakaisyaku = kensakugokuAry[0];
+		for (let damenakaisyaku_seikai of jisyoAry) {
+			let tempAry = [];
+			tempAry= damenakaisyaku_seikai.split('＝');
+				if ( hiragana2katakana(tempAry[0]) == damenakaisyaku ) {
+					kensakugokuAry.push( tempAry[1].replace(/\r?\n/g, '') );
+				}			
+		}
+
+
+//textBox.value=kensakugokuAry
+
+					textBox_b.textContent =  "";
+
+		for (let yakuhinmei of kensakugokuAry) {
+			for (let yakuhinmei_basyo of basyoAry) {
+				if (yakuhinmei_basyo.indexOf(yakuhinmei) >-1 ) {
+					//textBox.value=textBox.value + yakuhinmei_basyo;
+					textBox_b.textContent = textBox_b.textContent + "\n" + yakuhinmei_basyo;
+
+					//textBox_b.textContent =  yakuhinmei_basyo;
+				}
+			}
+		}
+        }
+
+
+        //writeToTextArea(transcript);
+      };
+     //======================================================================
+
+//   }
+
+     //======================================================================
+    // 音声認識を開始する関数（連続）
+    function startSpeechRecognition_2() {
+        textBox.focus()
+
+　　　　kurikaesi_flg = 2;
+        //textBox.style.backgroundColor = "#FF9966"; // 背景色をオレンジ色にする
+        //textBox.style.backgroundColor = "peachpuff"; // 背景色をオレンジ色にする
+        //textBox.style.backgroundColor = "mistyrose"; // 背景色をmistyroseにする
+        textBox_0.style.backgroundColor = "LightPink"; // 背景色をLightPinkにする
+        textBox.style.backgroundColor = "LightPink"; // 背景色をLightPinkにする
+
+      //if (recognition) {
+        recognition.start();
+      //}
+
+        textBox.focus()
+
+    }
+
+    //======================================================================
+    // 音声認識を開始する関数（単回）
+    function startSpeechRecognition_1() {
+        textBox.focus()
+
+　　　　kurikaesi_flg = 1;
+        textBox_0.style.backgroundColor = "#FF9966"; // 背景色をオレンジ色にする
+        textBox.style.backgroundColor = "#FF9966"; // 背景色をオレンジ色にする
+
+      //if (recognition) {
+        recognition.start();
+      //}
+
+
+        textBox.focus()
+    }
+
+
+     //======================================================================
+    // 音声認識を停止する関数
+    function stopSpeechRecognition() {
+      //if (recognition) {
+        kurikaesi_flg = 0;
+        textBox_0.style.backgroundColor = "white"; // 背景色を白色にする
+        textBox.style.backgroundColor = "white"; // 背景色を白色にする
+
+        recognition.stop();
+        textBox.focus();
+      //}
+    }
+
+    //======================================================================
+    //読み上げ停止
+    function yomiage_stop() {
+        speechSynthesis.cancel();
+        textBox.focus();
+    }
+
+    //======================================================================
+    // 読み上げ確認
+    function yomiage_kakunin(){
+        stopSpeechRecognition();
+
+        speechSynthesis.cancel();//Chromeで読み上げが打ち切られた時に、読み上げを再会するために必要な行。
+
+        var text0 =textBox.value.slice(textBox.selectionStart, textBox.selectionEnd);
+
+        //if (text0.length>100){
+        //  window.alert("読み上げは100文字まで");
+        //}else{
+            var speech = new SpeechSynthesisUtterance( text0);
+            speechSynthesis.speak(speech);
+        //}
+
+        textBox.focus()
+    }
+
+    //======================================================================
+    function writeToTextArea(text) {//textBoxの文章の選択位置をtextで置き換える関数
+       //選択されている位置を取得する
+       startPos = textBox.selectionStart;
+       endPos = textBox.selectionEnd;
+
+	//選択位置をtextで置き換える
+        textBox.value = textBox.value.slice(0, textBox.selectionStart) + text + textBox.value.slice(textBox.selectionEnd);
+
+        //選択位置を新たに決めなおす
+         endPos =  startPos  + text.length;
+         startPos =endPos;
+
+	textBox.setSelectionRange(startPos, endPos);
+        textBox.focus()
+
+
+
+
+      //=====ここから undo,redo用=================================================================
+      undoStack.push(textBox.value);
+      redoStack = [];
+      //=====ここまで undo,redo用=================================================================
+
+
+
+
+    }
+
+     //======================================================================
+    function textBox_copy(){ // textBoxの文字列全体をコピーする
+      navigator.clipboard.writeText(textBox.value);
+    }
+
+
+
+     //======================================================================
+    function zenbun_sakujyo(){ //全文削除
+      textBox.value='';
+    }
+
+    //======================================================================
+      function searchGoogle() {//全文をGoogleで検索
+          WebSearch("https://www.google.com/search?q=",textBox.value);
+      }
+
+    //======================================================================
+      function searchBing() {//全文をBingで検索
+          WebSearch('https://www.bing.com/search?q=',textBox.value);
+      }
+
+    //======================================================================
+      function select_searchGoogle() {//選択部をGoogleで検索
+var selectedText =  sentaku_bubun();
+          WebSearch("https://www.google.com/search?q=",selectedText);
+      }
+
+    //======================================================================
+      function text_select_searchGoogle(str) {//文字列をGoogleで検索
+var selectedText =  str;
+          WebSearch("https://www.google.com/search?q=",selectedText);
+      }
+
+    //======================================================================
+      function select_searchBing() {//選択部をBingで検索
+var selectedText =  sentaku_bubun();
+          WebSearch('https://www.bing.com/search?q=',selectedText);
+      }
+
+
+    //======================================================================
+       function WebSearch(s_url,str) {
+         window.open( s_url +  encodeURIComponent(str), "_blank");
+         textBox.focus()
+       }
+
+
+    //======================================================================
+    function selectAllText(){
+      //var textarea = document.getElementById("myTextarea");
+      textBox.select();
+    }
+
+    //======================================================================
+     function removeBlanks() {//テキストボックスの文の選択された部分から空白を取り除く
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            // 操作はここに書く
+            hontai_Text_b=kuuhaku_sakujyo( hontai_Text_a);
+
+            // セレクト部だけ操作を実施したテキストで置き換える
+            textBox.value = mae_Text_a + hontai_Text_b + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start,start+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+
+
+    //======================================================================
+    function kuuhaku_sakujyo(str) {//文字列中の空白を削除
+        var str1 = str.replace(/ /g, ""); // 半角空白を取り除く
+        var str2 =str1.replace(/　/g,""); // 全角空白を取り除く
+        return str2;
+    }
+
+
+
+    //======================================================================
+     function AllremoveBlanks() {//テキストボックスの全文から空白を取り除く
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+
+            var mae_Text_b;//操作後の、最初からセレクト部の直前までのテキスト
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            textBox.value =kuuhaku_sakujyo(textBox.value );  // 操作はここに書く
+            mae_Text_b    =kuuhaku_sakujyo(mae_Text_a);      // 操作はここに書く
+            hontai_Text_b =kuuhaku_sakujyo( hontai_Text_a);  // 操作はここに書く
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(mae_Text_b.length ,mae_Text_b.length+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+
+
+    //======================================================================
+//テキストボックスの中の文の選択された部分を返す関数
+function sentaku_bubun() {
+
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var selectedText = text.substring(start, end);
+
+  return selectedText;
+}
+
+    //======================================================================
+//文字列中の空白の数を返す
+function countSpaces(str) {
+  var count = 0;
+  for (var i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      count++;
+    }
+  }
+  return count;
+}
+
+
+    //=====ここから undo,redo用=================================================================
+    function undo() {
+      if (undoStack.length > 0) {
+        var previousState = undoStack.pop();
+        redoStack.push(textBox.value);
+        textBox.value = previousState;
+      }
+
+        textBox.focus()
+    }
+
+    //===================================
+    function redo() {
+      if (redoStack.length > 0) {
+        var nextState = redoStack.pop();
+        undoStack.push(textBox.value);
+        textBox.value = nextState;
+      }
+        textBox.focus()
+
+    }
+
+    //===================================
+    textBox.addEventListener("input", function() {
+      undoStack.push(textBox.value);
+      redoStack = [];
+    });
+
+
+
+    //=====ここまで undo,redo用=================================================================
+
+   //ここから テキストエリア内でタブ文字を入力============================================================
+   //テキストエリア内でタブ文字を入力できるように、キー入力を監視し、タブキーが押された場合にタブ文字を挿入する
+  textBox.addEventListener('keydown', function(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault(); // デフォルトの動作をキャンセル
+      const start = this.selectionStart;
+      const end = this.selectionEnd;
+      this.value = this.value.substring(0, start) + '\t' + this.value.substring(end);
+      this.selectionStart = this.selectionEnd = start + 1; // カーソル位置を調整
+    }
+  });
+   //ここまで テキストエリア内でタブ文字を入力　===============================================
+
+
+    //======================================================================
+     function select_zenkaku2hankaku() {//テキストボックスの文の選択された部分//全角英数字を半角英数字に変換
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            hontai_Text_b=zenkaku2hankaku( hontai_Text_a); // 操作はここに書く（この行を書き換える）
+
+            // セレクト部だけ操作を実施したテキストで置き換える
+            textBox.value = mae_Text_a + hontai_Text_b + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start,start+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+    //======================================================================
+     function zentai_zenkaku2hankaku() {//テキストボックスの文の全体//全角英数字を半角英数字に変換
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+
+            var mae_Text_b;//操作後の、最初からセレクト部の直前までのテキスト
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            textBox.value =zenkaku2hankaku(textBox.value );  // 操作はここに書く（この行を書き換える）
+            mae_Text_b    =zenkaku2hankaku(mae_Text_a);      // 操作はここに書く（この行を書き換える）
+            hontai_Text_b =zenkaku2hankaku(hontai_Text_a );  // 操作はここに書く（この行を書き換える）
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(mae_Text_b.length ,mae_Text_b.length+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+
+
+    //======================================================================
+    function zenkaku2hankaku(str) {//全角英数字を半角英数字に変換
+       var str1= str.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0);});
+       var str2=str1.replace(/、/g, ","); 
+       var str3=str2.replace(/。/g, "."); 
+       var str4=str3.replace(/　/g, " "); //スペースの変換
+       var str5=str4.replace(/「/g, "["); 
+       var str6=str5.replace(/」/g, "]"); 
+       var str7=str6.replace(/ー/g, "-");
+       var str8=str7.replace(/￥/g, "\\");
+    return str8;
+
+   }
+
+
+    //======================================================================
+     function select_hankaku2zenkaku() {//テキストボックスの文の選択された部分//半角英数字を全角英数字に変換
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            hontai_Text_b=hankaku2zenkaku( hontai_Text_a); // 操作はここに書く（この行を書き換える）
+
+            // セレクト部だけ操作を実施したテキストで置き換える
+            textBox.value = mae_Text_a + hontai_Text_b + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start,start+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+    //======================================================================
+     function zentai_hankaku2zenkaku() {//テキストボックスの文の全体//半角英数字を全角英数字に変換
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+
+            var mae_Text_b;//操作後の、最初からセレクト部の直前までのテキスト
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            textBox.value =hankaku2zenkaku(textBox.value );  // 操作はここに書く（この行を書き換える）
+            mae_Text_b    =hankaku2zenkaku(mae_Text_a);      // 操作はここに書く（この行を書き換える）
+            hontai_Text_b =hankaku2zenkaku(hontai_Text_a );  // 操作はここに書く（この行を書き換える）
+
+            //新しくなった文にセレクト部を復活させる
+         //   textBox.setSelectionRange(mae_Text_b.length ,mae_Text_b.length+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+
+
+
+
+    //======================================================================
+    function hankaku2zenkaku(str) {//半角英数字を全角英数字に変換
+       var str1= str.replace(/[A-Za-z0-9!-~]/g, function(s){return String.fromCharCode(s.charCodeAt(0)+0xFEE0);});
+       var str2=str1.replace(/\,/g, "、"); 
+       var str3=str2.replace(/\./g, "。"); 
+       var str4=str3.replace(/\ /g, "　"); //スペースの変換
+       var str5=str4.replace(/\[/g, "「"); 
+       var str6=str5.replace(/\]/g, "」"); 
+       var str7=str6.replace(/\-/g, "ー");
+       var str8=str7.replace(/＼/g, "￥"); 
+    return str8;
+
+}
+    //======================================================================
+    function hiragana2katakana(str) {//ひらがなをカタカナに変換
+       var str1= str.replace(/[ぁ-ん]/g, function(s) {return String.fromCharCode(s.charCodeAt(0) + 0x60);});
+    return str1;
+}
+
+
+//input type="file"のボタンの表記が直接変更することができないので、普通のボタン（id=file-input）を表示し、これを押したときにinput type="file"のボタンがクリックされるようにする関数。input type="file"のボタンは見えなくする。
+
+    function openFileInput() {
+      document.getElementById('file-input').click();
+    }
+
+
+    //======================================================================
+    function handleFileSelect(event) {//ファイル読み込み
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+  // ファイル名を取得する
+  const fileName = file.name;
+  console.log("ファイル名:", fileName);
+
+      reader.onload = function(event) {//このイベントハンドラは、ファイルの読み込みが完了した際に実行される。
+        const contents = event.target.result;
+        textBox.value = contents;
+      };
+
+      reader.readAsText(file);//ファイルをテキストとして読み込む。
+
+    }
+
+
+
+    //======================================================================
+
+	// ファイル書き出し（ここから）      
+	let fileHandle
+
+	async function bangumihyou_hozon()  {
+
+		try {
+			const content =textBox.value;
+
+			fileHandle = await window.showSaveFilePicker();
+			if (fileHandle.kind !== 'file') return
+
+			const writableStream = await fileHandle.createWritable()
+			await writableStream.write(content)
+			await writableStream.close()
+		} catch (e) {
+			console.error(e)
+		}
+	}
+
+	//  ファイル書き出し（ここまで）--------------------------------------------------------------------------------------------------------------------------- 
+
+
+
+//======================================================================
+function mae_sakujyo(){//選択の前1字を削除
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+
+         if(start>0){
+            var mae_Text_a = text.substring(0, start-1);
+            var ato_Text_a = text.substring(start);
+            textBox.value = mae_Text_a + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start-1,end-1 );
+         }
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+}
+
+//======================================================================
+function ato_sakujyo(){//選択の後1字を削除
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+
+         if(end<text.length){
+            var mae_Text_a = text.substring(0, end);
+            var ato_Text_a = text.substring(end+1);
+            textBox.value = mae_Text_a + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start,end);
+         }
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+}
+
+
+
+
+
+
+
+     //======================================================================
+     function select_sousa_hinagata() {//テキストボックスの文の選択された部分に操作を行う関数のひな型
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            //hontai_Text_b=function( hontai_Text_a); // 操作はここに書く（この行を書き換える）
+
+            // セレクト部だけ操作を実施したテキストで置き換える
+            textBox.value = mae_Text_a + hontai_Text_b + ato_Text_a;
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(start,start+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+    //======================================================================
+     function zentai_sousa_hinagata() {//テキストボックスの文の全体に操作を行う関数のひな型
+            var start = textBox.selectionStart;
+            var end = textBox.selectionEnd;
+            var text = textBox.value;
+            var mae_Text_a = text.substring(0, start);//最初からセレクト部の直前までのテキストのこと
+            var hontai_Text_a = text.substring(start, end);//セレクト部本体のテキストのこと
+            var ato_Text_a = text.substring(end);//セレクト部の直後から最後までのテキストのこと
+
+            var mae_Text_b;//操作後の、最初からセレクト部の直前までのテキスト
+            var hontai_Text_b ;//操作後のセレクト部本体のテキスト
+
+            //textBox.value =function(textBox.value );  // 操作はここに書く（この行を書き換える）
+            //mae_Text_b    =function(mae_Text_a);      // 操作はここに書く（この行を書き換える）
+            //hontai_Text_b =function( hontai_Text_a);  // 操作はここに書く（この行を書き換える）
+
+            //新しくなった文にセレクト部を復活させる
+            textBox.setSelectionRange(mae_Text_b.length ,mae_Text_b.length+hontai_Text_b.length );
+
+            //フォーカスをテキストエリアに戻す
+            textBox.focus()
+
+     }
+
+    //======================================================================
+
+function getLastThreeCharacters(str) {//文字列の最後から3文字だけを取り出す関数
+  if (typeof str !== 'string') {
+    throw new Error('Input must be a string.');
+  }
+
+  if (str.length <= 3) {
+    return str;
+  }
+
+  return str.slice(-3);
+}
+
+    //======================================================================
+function removeLastThreeCharacters(str) {//文字列の最後から3文字だけを削除する関数
+  if (typeof str !== 'string') {
+    throw new Error('Input must be a string.');
+  }
+
+  if (str.length <= 3) {
+    return '';
+  }
+
+  return str.slice(0, -3);
+}
+    //======================================================================
+function replace_all(str, before, after) {
+    return str.split(before).join(after);
+}
+
+function hiragana_kara_katakana(str) {
+       var str1=  replace_all(str, "あ", "ア");
+
+
+    return str1;
+}
+
+
+
+
+
+        textBox.focus()    //この行は開始時にテキストエリアの先頭にプロンプトが行くようにつけている
+
+
+let basyo = `_開始	VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+_１％ディプリバン注－キット　２００ｍｇ２０ｍＬ	管I-b(冷)横3右
+_１％ディプリバン注－キット　５００ｍｇ５０ｍＬ	管I-b(冷)横3右
+_ＤＴビック 注射剤 1本	調Q(冷)横4右
+_ＨＭＧ筋注用７５単位「あすか」　（溶解液付）	管I-a(冷)横2左
+_ＫＣＬ注２０ｍＥｑキット「テルモ」　１モル２０ｍＬ	管E横2
+_ＫＣＬ注２０ｍＥｑキット「テルモ」　１モル２０ｍＬ	管E横6
+_ＬＨ－ＲＨ注０．１ｍｇ「タナベ」	管I-a(冷)横2左
+_ＰＡ・ヨード点眼・洗眼液　０．２％	管I-a(冷)横4左
+_ＴＲＨ注０．５ｍｇ「タナベ」	管I-a(冷)横2左
+_アートセレブ脳脊髄手術用洗浄灌流液　５００ｍＬ	管D横4
+_アイセントレス錠４００ｍｇ	毒薬・向精神薬保管室　O棚
+_アクチット輸液　５００ｍＬ	管C横4
+_アクトシン軟膏３％	調Q(冷)横4左
+_アシクロビル点滴静注液２５０ｍｇ「トーワ」	管E横1
+_アスプール液（０．５％）	管N横2
+_アセトアミノフェン坐剤小児用１００ｍｇ「シオエ」	調Q(冷)横5右
+_アセトアミノフェン坐剤小児用２００ｍｇ「シオエ」	調Q(冷)横5右
+_アセリオ静注液１０００ｍｇバッグ　１，０００ｍｇ１００ｍＬ	管A横3
+_アセリオ静注液１０００ｍｇバッグ　１，０００ｍｇ１００ｍＬ	管H横3
+_アセリオ静注液１０００ｍｇバッグ　１，０００ｍｇ１００ｍＬ	管H横5
+_アタラックス－Ｐ注射液（２５ｍｇ／ｍｌ）　２．５％１ｍＬ	管E横1
+_アタラックス－Ｐ注射液（５０ｍｇ／ｍｌ）　５％１ｍＬ	管E横1
+_アデノシン負荷用静注６０ｍｇシリンジ「ＦＲＩ」　２０ｍＬ	管E横1
+_アデホス－Ｌコーワ注２０ｍｇ	管I-a(冷)横1左
+_アデホス－Ｌコーワ注４０ｍｇ	管I-a(冷)横1左
+_アデラビン９号注１ｍＬ	管E横1
+_アドナ注（静脈用）１００ｍｇ　０．５％２０ｍＬ	管E横2
+_アトニン－Ｏ注５単位	管I-a(冷)
+_アトニン－Ｏ注５単位	管I-a(冷)横1左
+_アドレナリン注０．１％シリンジ「テルモ」　１ｍＬ	管E横6
+_アトロピン注０．０５％シリンジ「テルモ」　１ｍＬ	管E横6
+_アトロピン点眼液１％　５ｍＬ	「日点アトロピン点眼液」を見よ
+_アトロピン硫酸塩注０．５ｍｇ「タナベ」　０．０５％１ｍＬ	管H横2
+_アナペイン注１０ｍｇ／ｍＬ　１％１０ｍＬ	管H横1
+_アナペイン注２ｍｇ／ｍＬ　０．２％１００ｍＬ	管H横1
+_アナペイン注７．５ｍｇ／ｍＬ　０．７５％１０ｍＬ	管H横1
+_アネメトロ点滴静注液５００ｍｇ　１００ｍＬ	管E横1
+_アネメトロ点滴静注液５００ｍｇ　１００ｍＬ	管E横6
+_アブラキサン点滴静注用１００ｍｇ	毒薬・向精神薬保管室の化療薬品棚
+_アミオダロン塩酸塩静注１５０ｍｇ「ＴＥ」　３ｍＬ	管H横1
+_アミカシン硫酸塩注射液１００ｍｇ「明治」	管E横1
+_アミカシン硫酸塩注射用２００ｍｇ「日医工」	管D横3　(限定の段ボールの中)
+_アミサリン注２００ｍｇ　１０％２ｍＬ	管E横1
+_アミパレン輸液　２００ｍＬ	管D横2
+_アラセナ－Ａ点滴静注用３００ｍｇ	管E横1
+_アルギニン点滴静注３０ｇ「ＡＹ」　１０％３００ｍＬ	管J横6
+_アルツディスポ関節注２５ｍｇ　１％２．５ｍＬ	管E横2
+_アルプロスタジル注１０μｇ「Ｆ」　２ｍＬ	管I-a(冷)
+_アルプロスタジル注１０μｇ「Ｆ」　２ｍＬ	管I-a(冷)横1右
+_アルベカシン硫酸塩注射液１００ｍｇ「ＮＩＧ」　２ｍＬ	管H横1
+_アルロイドＧ内用液５％	調Q(冷)横4左
+_アレベール吸入用溶解液０．１２５％	管N横2
+_アンチレクス静注１０ｍｇ　１％１ｍＬ	管H横1
+_イーケプラ点滴静注５００ｍｇ　５ｍＬ	管E横2
+_イオパミドール３００注１００ｍＬ「Ｆ」　６１．２４％	管G横5
+_イオパミドール３７０注１００ｍＬ「Ｆ」　７５．５２％	管G横5
+_イオパミドール３７０注２０ｍＬ「Ｆ」　７５．５２％	管G横5
+_イオパミロン注３００　６１．２４％２０ｍＬ	管G横5
+_イオパミロン注３００シリンジ　６１．２４％１００ｍＬ	管G横5
+_イオパミロン注３７０　７５．５２％１００ｍＬ	管G横5
+_イオパミロン注３７０シリンジ　７５．５２％１００ｍＬ	管G横5
+_イオパミロン注３７０シリンジ　７５．５２％１００ｍＬ	管G横5
+_イオパミロン注３７０シリンジ　７５．５２％８０ｍＬ	管G横5
+_イオヘキソール３００注１００ｍＬ「Ｆ」　６４．７１％	管G横5
+_イオメロン３５０注シリンジ１３５ｍＬ　７１．４４％	管G横6
+_イソゾール注射用０．５ｇ　５００ｍｇ（溶解液付）	管H横1
+_イソゾール注射用０．５ｇ　５００ｍｇ（溶解液付）	管H横5
+_イベニティ皮下注１０５ｍｇシリンジ　１．１７ｍＬ	管I-a(冷)
+_イベニティ皮下注１０５ｍｇシリンジ　１．１７ｍＬ	管I-a(冷)横1左
+_インジゴカルミン注２０ｍｇ「ＡＦＰ」　０．４％５ｍＬ	管E横1
+_インデラル注射液２ｍｇ　０．１％２ｍＬ	管H横2
+_イントラリポス輸液２０％　１００ｍＬ	管B横1
+_インフリキシマブＢＳ点滴静注用１００ｍｇ「ＣＴＨ」	管I-b(冷)
+_インフリキシマブＢＳ点滴静注用１００ｍｇ「ＣＴＨ」	管I-b(冷)横1右
+_インフルエンザＨＡワクチン「ＫＭＢ」 注射剤 1瓶	毒薬・向精神薬保管室(冷)
+_インフルエンザＨＡワクチン「生研」 注射剤 1瓶	毒薬・向精神薬保管室(冷)
+_ヴィーン３Ｇ輸液　２００ｍＬ	管A横3
+_ヴィーン３Ｇ輸液　２００ｍＬ	管C横4
+_ウエルアップハンドローション０．５％ 調剤用 500ｍＬ	管N周囲(横側や天面上など)
+_ウエルパス手指消毒液０．２％ 調剤用 1000ｍＬ	管N横5
+_ウテメリン注５０ｍｇ　１％５ｍＬ	管I-a(冷)
+_ウテメリン注５０ｍｇ　１％５ｍＬ	管I-a(冷)横1右
+_ウログラフイン注７６％　２０ｍＬ	管D横3　(限定の段ボールの中)
+_エナルモンデポー筋注１２５ｍｇ　１ｍＬ	管E横2
+_エナルモンデポー筋注２５０ｍｇ　１ｍＬ	管D横3　(限定の段ボールの中)
+_エピルビシン塩酸塩注射用１０ｍｇ「サワイ」	毒薬・向精神薬保管室の化療薬品棚
+_エピルビシン塩酸塩注射用５０ｍｇ「サワイ」	毒薬・向精神薬保管室の化療薬品棚
+_エポエチンアルファＢＳ３０００シリンジＪＣＲ　３０００ＩＵ２ｍＬ	管I-a(冷)
+_エポエチンアルファＢＳ３０００シリンジＪＣＲ　３０００ＩＵ２ｍＬ	管I-a(冷)横2右
+_エホチール注１０ｍｇ　１％１ｍＬ	管H横2
+_エムラクリーム	管N横1
+_エリル点滴静注液３０ｍｇ　３０．８ｍｇ２ｍＬ	管H横2
+_エルシトニン注２０Ｓディスポ　２０エルカトニン単位１ｍＬ	管H横2
+_エルシトニン注４０単位　４０エルカトニン単位１ｍＬ	管H横2
+_エルネオパＮＦ１号輸液　１０００ｍＬ	管B横2
+_エルネオパＮＦ１号輸液　１５００ｍＬ	管B横2
+_エルネオパＮＦ２号輸液　１０００ｍＬ	管B横2
+_エルネオパＮＦ２号輸液　１５００ｍＬ	管B横2
+_エレメンミック注　２ｍＬ	管E横2
+_エンハーツ点滴静注用１００ｍｇ	管I-b(冷)
+_エンハーツ点滴静注用１００ｍｇ	管I-b(冷)横1右
+_オキサリプラチン点滴静注液１００ｍｇ「ＮＫ」　２０ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_オキサリプラチン点滴静注液２００ｍｇ「ＮＫ」　４０ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_オキサリプラチン点滴静注液５０ｍｇ「ＮＫ」　１０ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_オキシドール「ヨシダ」	管N周囲(横側や天面上など)
+_オクトレオチド皮下注１００μｇ「あすか」　１ｍＬ	管I-a(冷)
+_オクトレオチド皮下注１００μｇ「あすか」　１ｍＬ	管I-a(冷)横2右
+_オザグレルＮａ点滴静注８０ｍｇ／１００ｍＬバッグ「ＩＰ」	管E横3
+_オザグレルＮａ点滴静注８０ｍｇ／１００ｍＬバッグ「ＩＰ」	管E横6
+_オノアクト点滴静注用５０ｍｇ	管H横2
+_オビソート注射用０．１ｇ　１００ｍｇ（溶解液付）	管H横2
+_オフサグリーン静注用２５ｍｇ　（溶解液付）	管J横6
+_オプジーボ点滴静注２４０ｍｇ　２４ｍＬ	管I-b(冷)
+_オプジーボ点滴静注２４０ｍｇ　２４ｍＬ	管I-b(冷)横1右
+_オムニパーク２４０注１０ｍＬ　５１．７７％	管G横6
+_オムニパーク３００注１０ｍＬ　６４．７１％	管G横6
+_オムニパーク３００注２０ｍＬ　６４．７１％	管G横6
+_オムニパーク３００注シリンジ１００ｍＬ　６４．７１％	管G横6
+_オムニパーク３００注シリンジ１５０ｍＬ　６４．７１％	管G横6
+_オムニパーク３００注シリンジ５０ｍＬ　６４．７１％	管G横6
+_オムニパーク３００注シリンジ８０ｍＬ　６４．７１％	管G横6
+_オムニパーク３５０注シリンジ１００ｍＬ　７５．４９％	管G横6
+_オルガラン静注１２５０単位　１，２５０抗第Ｘａ因子活性単位１ｍＬ	管D横3　(限定の段ボールの中)
+_オレンシア点滴静注用２５０ｍｇ	管I-b(冷)
+_オレンシア点滴静注用２５０ｍｇ	管I-b(冷)横2右
+_オンデキサ静注用２００ｍｇ	管I-a(冷)
+_オンデキサ静注用２００ｍｇ	管I-a(冷)横5左
+_ガストログラフイン経口・注腸用	管N横3
+_カルシトリオール静注液０．５μｇ「Ｆ」　１ｍＬ	管H横3
+_カルシトリオール静注液１μｇ「Ｆ」　１ｍＬ	管H横3
+_カルチコール注射液８．５％５ｍＬ	管E横3
+_カルボカインアンプル注２％　１０ｍＬ	管H横3
+_カルボカイン注１％	管H横3
+_カルボプラチン注射液１５０ｍｇ「日医工」　１５ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_カルボプラチン注射液５０ｍｇ「日医工」　５ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_キサラタン点眼液０．００５％	調Q(冷)横2左
+_キシロカインゼリー２％	管N横2
+_キシロカインポンプスプレー８％	管N横2
+_キシロカイン液「４％」	管N横2
+_キシロカイン注ポリアンプ０．５％　１０ｍＬ	管H横3
+_キシロカイン注ポリアンプ１％　１０ｍＬ	管H横3
+_キシロカイン注ポリアンプ２％　１０ｍＬ	管H横3
+_キシロカイン注射液「０．５％」エピレナミン１：１００，０００含有	管I-a(冷)横2右
+_キシロカイン注射液「１％」エピレナミン（１：１００，０００）含有	管I-a(冷)横2右
+_キシロカイン注射液「２％」エピレナミン（１：８０，０００）含有	管I-a(冷)横3右
+_キドミン輸液　２００ｍＬ	管D横2
+_キュビシン静注用３５０ｍｇ	管I-a(冷)
+_キュビシン静注用３５０ｍｇ	管I-a(冷)横2左
+_グラニセトロン静注液３ｍｇ「マイラン」　３ｍＬ	管H横4
+_クラビット点滴静注バッグ５００ｍｇ／１００ｍＬ	管E横3
+_クリアクター静注用８０万　８０万国際単位	管E横3
+_グリセオール注　２００ｍＬ	管B横3
+_グリセオール注　５００ｍＬ	管B横3
+_グリセリンＢＣ液「ヨシダ」 調剤用 100ｍＬ	管N横3
+_グリセリンＢＣ液「ヨシダ」 調剤用 250ｍＬ	管N横3
+_グリセリン浣腸「オヲタ」１２０　５０％１２０ｍＬ	管N横1
+_グリセリン浣腸「オヲタ」６０　５０％６０ｍＬ	管N横1
+_グリセリン浣腸「オヲタ」小児用３０　５０％３０ｍＬ	管N横1
+_グルアセト３５注　５００ｍＬ	管A横3
+_グルアセト３５注　５００ｍＬ	管M
+_グルカゴンＧノボ注射用１ｍｇ　（溶解液付）	管I-a(冷)
+_グルカゴンＧノボ注射用１ｍｇ　（溶解液付）	管I-a(冷)横3右
+_グルトパ注６００万　６００万国際単位（溶解液付）	管E横3
+_クロスエイトＭＣ静注用１０００単位　１，０００単位（溶解液付）	管I-b(冷)
+_クロスエイトＭＣ静注用１０００単位　１，０００単位（溶解液付）	管I-b(冷)横1右
+_ケイセントラ静注用５００　５００国際単位（溶解液付）	管I-a(冷)
+_ケイセントラ静注用５００　５００国際単位（溶解液付）	管I-a(冷)横5左
+_ケイツーＮ静注１０ｍｇ	管E横3
+_ケナコルト－Ａ筋注用関節腔内用水懸注４０ｍｇ／１ｍＬ	管E横3
+_ケナコルト－Ａ皮内用関節腔内用水懸注５０ｍｇ／５ｍＬ　１０ｍｇ	管E横3
+_ゲムシタビン点滴静注用１ｇ「ヤクルト」	毒薬・向精神薬保管室の化療薬品棚
+_ゲムシタビン点滴静注用２００ｍｇ「ヤクルト」	毒薬・向精神薬保管室の化療薬品棚
+_ゲンタシン注１０　１０ｍｇ	管H横4
+_ゲンタシン注４０　４０ｍｇ	管H横4
+_ゲンタシン注６０　６０ｍｇ	管H横4
+_コアテック注５ｍｇ　５ｍＬ	管E横3
+_コアベータ静注用１２．５ｍｇ	管H横4
+_ゴナックス皮下注用１２０ｍｇ　（溶解液付）	管D横3　(限定の段ボールの中)
+_ゴナックス皮下注用８０ｍｇ　（溶解液付）	管J横6
+_ゴナックス皮下注用８０ｍｇ　（溶解液付）	管D横3　(限定の段ボールの中)
+_コリナコール点眼液　５ｍＬ	調Q(冷)
+_コリナコール点眼液　５ｍＬ	調Q横2左
+_サイラムザ点滴静注液５００ｍｇ　５０ｍＬ	管I-b(冷)
+_サイラムザ点滴静注液５００ｍｇ　５０ｍＬ	管I-b(冷)横2右
+_サイレース静注２ｍｇ	毒薬・向精神薬保管室入ってすぐ右棚下
+_サムタス点滴静注用８ｍｇ	管H横4
+_ザラカム配合点眼液	調Q(冷)
+_ザラカム配合点眼液	調Q横2左
+_サンリズム注射液５０　５０ｍｇ５ｍＬ	管H横4
+_ジアグノグリーン注射用２５ｍｇ　（溶解液付）	管E横4
+_ジーラスタ皮下注３．６ｍｇ　０．３６ｍＬ	管I-a(冷)
+_ジーラスタ皮下注３．６ｍｇ　０．３６ｍＬ	管I-a(冷)横2左
+_ジェービックＶ 注射剤 1本	調Q(冷)
+_ジェービックＶ 注射剤 1本	調Q横4右
+_ジェブタナ点滴静注６０ｍｇ　１．５ｍＬ（溶解液付）	毒薬・向精神薬保管室の化療薬品棚
+_シェルガン０．５眼粘弾剤　０．５ｍＬ	管E横4
+_ジオン注生食液付　１０ｍＬ（希釈液付）	管H横4
+_ジクロフェナクＮａ点眼液０．１％「ニッテン」	調Q(冷)
+_ジクロフェナクＮａ点眼液０．１％「ニッテン」	調Q横2左
+_ジゴシン注０．２５ｍｇ　０．０２５％１ｍＬ	管H横4
+_シスプラチン点滴静注１０ｍｇ「マルコ」　２０ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_シスプラチン点滴静注５０ｍｇ「マルコ」　１００ｍＬ	毒薬・向精神薬保管室の化療薬品棚
+_ジスロマック点滴静注用５００ｍｇ	管E横4
+_シナジス筋注液１００ｍｇ　１ｍＬ	調Q(冷)
+_シナジス筋注液１００ｍｇ　１ｍＬ	調Q横3右
+_シナジス筋注液５０ｍｇ　０．５ｍＬ	調Q(冷)
+_シナジス筋注液５０ｍｇ　０．５ｍＬ	調Q横3右
+_ジムソ膀胱内注入液５０％　５０ｍＬ	管D横3　(限定の段ボールの中)
+_ジメチコン内用液２％「ホリイ」	管N横3
+_シルガード９水性懸濁筋注シリンジ 注射剤 1筒	調Q(冷)
+_シルガード９水性懸濁筋注シリンジ 注射剤 1筒	調Q横4右
+_ジルチアゼム塩酸塩注射用５０ｍｇ「サワイ」	管H横4
+_シングリックス筋注用 注射剤 0.5ｍＬ	調Q(冷)
+_シングリックス筋注用 注射剤 0.5ｍＬ	調Q横4右
+_シンポニー皮下注５０ｍｇシリンジ　０．５ｍＬ	管I-b(冷)
+_シンポニー皮下注５０ｍｇシリンジ　０．５ｍＬ	管I-b(冷)横2右
+_スープレン吸入麻酔液	管N横4
+_ステラーラ皮下注４５ｍｇシリンジ　０．５ｍＬ	管I-b(冷)
+_ステラーラ皮下注４５ｍｇシリンジ　０．５ｍＬ	管I-b(冷)横2右
+_ズファジラン筋注５ｍｇ　０．５％１ｍＬ	管H横4
+_スポンゼル　５ｃｍ×２．５ｃｍ	管N横1
+_スロンノンＨＩ注１０ｍｇ／２ｍＬ	管E横4
+_ゼビュディ(要検討)	調Q横5右
+_セファゾリンナトリウム注射用１ｇ「日医工」	管E横4
+_セファランチン注１０ｍｇ　０．５％２ｍＬ	管J横5
+_セフォタックス注射用０．５ｇ　５００ｍｇ	管E横4
+_セフォタックス注射用１ｇ	管E横4
+_セフォチアム塩酸塩静注用０．５ｇ「ＮＰ」　５００ｍｇ	管E横5
+_セフォチアム塩酸塩静注用１ｇ「ＮＰ」	管E横5
+_セフォン静注用１ｇ	管E横4
+_セフタジジム静注用１ｇ「ＮＰ」	管E横5
+_セフトリアキソンＮａ静注用１ｇ「サワイ」	管E横5
+_セフメタゾールナトリウム静注用１ｇ「日医工」	管E横5
+_セレネース注５ｍｇ　０．５％１ｍＬ	管J横3
+_ソセゴン注射液１５ｍｇ	毒薬・向精神薬保管室入ってすぐ右棚下
+_ソセゴン注射液３０ｍｇ	毒薬・向精神薬保管室入ってすぐ右棚下
+_ソナゾイド注射用１６μＬ　（溶解液付）	管J横6
+_ゾラデックス３．６ｍｇデポ　（ゴセレリンとして）	管I-a(冷)
+_ゾラデックス３．６ｍｇデポ　（ゴセレリンとして）	管I-a(冷)横3右
+_ゾラデックスＬＡ１０．８ｍｇデポ　（ゴセレリンとして）	管I-a(冷)
+_ゾラデックスＬＡ１０．８ｍｇデポ　（ゴセレリンとして）	管I-a(冷)横3右
+_ソル・コーテフ静注用５００ｍｇ　（溶解液付）	管E横5
+_ソル・コーテフ注射用１００ｍｇ　（溶解液付）	管E横5
+_ソル・メドロール静注用１２５ｍｇ　（溶解液付）	管E横5
+_ソル・メドロール静注用５００ｍｇ　（溶解液付）	管E横5
+_ソルアセトＦ輸液　５００ｍＬ	管A横2
+_ソルアセトＦ輸液　５００ｍＬ	管M
+_ソルダクトン静注用１００ｍｇ	管J横3
+_ソルダクトン静注用２００ｍｇ	管J横3
+_ソルデム１輸液　２００ｍＬ	管A横3
+_ソルデム１輸液　２００ｍＬ	管M
+_ソルデム１輸液　５００ｍＬ	管A横3
+_ソルデム１輸液　５００ｍＬ	管M
+_ソルデム３Ａ輸液　５００ｍＬ	管A横2
+_ソルデム３Ａ輸液　５００ｍＬ	管M
+_ゾレア皮下注１５０ｍｇシリンジ　１ｍＬ	管I-b(冷)
+_ゾレア皮下注１５０ｍｇシリンジ　１ｍＬ	管I-b(冷)横2右
+_ゾレドロン酸点滴静注４ｍｇ／１００ｍＬバッグ「ＮＫ」	管H横4
+_ダイアモックス注射用５００ｍｇ	管F横1
+_タケプロン静注用３０ｍｇ	管F横1
+_タコシール組織接着用シート　４．８ｃｍ×４．８ｃｍ	管I-a(冷)
+_タコシール組織接着用シート　４．８ｃｍ×４．８ｃｍ	管I-a(冷)横2左
+_タコシール組織接着用シート　９．５ｃｍ×４．８ｃｍ	管I-a(冷)
+_タコシール組織接着用シート　９．５ｃｍ×４．８ｃｍ	管I-a(冷)横2左
+_タゾピペ配合静注用２．２５「ニプロ」　２．２５ｇ	管F横1
+_タゾピペ配合静注用２．２５「ニプロ」　２．２５ｇ	管F横6
+_タゾピペ配合静注用４．５「ニプロ」　４．５ｇ	管F横1
+_タプロスミニ点眼液０．００１５％　０．３ｍＬ	調Q(冷)
+_タプロスミニ点眼液０．００１５％　０．３ｍＬ	調Q横3左
+_タミフルドライシロップ３％	調Q(冷)
+_タミフルドライシロップ３％	調Q横5右
+_ダラシンＳ注射液３００ｍｇ	管F横1
+_ダラシンＳ注射液６００ｍｇ	管F横1
+_ダルベポエチン　アルファ注１０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注１０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)横4右
+_ダルベポエチン　アルファ注１２０μｇシリンジＫＫＦ　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注１２０μｇシリンジＫＫＦ　０．５ｍＬ	管I-a(冷)横4右
+_ダルベポエチン　アルファ注１８０μｇシリンジＫＫＦ　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注１８０μｇシリンジＫＫＦ　０．５ｍＬ	管I-a(冷)横4右
+_ダルベポエチン　アルファ注２０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注２０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)横4右
+_ダルベポエチン　アルファ注３０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注３０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)横4右
+_ダルベポエチン　アルファ注６０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)
+_ダルベポエチン　アルファ注６０μｇシリンジ「ＫＫＦ」　０．５ｍＬ	管I-a(冷)横4右
+_ダントリウム静注用２０ｍｇ	管F横1
+_ヂアミトール水　０．０２５％	管N横5
+_ヂアミトール水　０．１％	管N横5
+_チエナム点滴静注用０．５ｇ　５００ｍｇ	管F横1
+_ツベルクリン（ＰＰＤ）１人用　０．２５μｇ	「一般診断用精製ツベルクリン（ＰＰＤ）」を見よ
+_ツルバダ配合錠	毒薬・向精神薬保管室　O棚
+_ディプリバン注－キット１％　２００ｍｇ２０ｍＬ	管I-b(冷)
+_ディプリバン注－キット１％　５００ｍｇ５０ｍＬ	管I-b(冷)
+_デカドロン注射液３．３ｍｇ　１ｍＬ	調Q(冷)
+_デカドロン注射液３．３ｍｇ　１ｍＬ	調Q横2左
+_デキサート注射液１．６５ｍｇ　０．５ｍＬ	管F横2
+_デキサート注射液３．３ｍｇ　１ｍＬ	管F横2
+_デクスメデトミジン静注液２００μｇ／５０ｍＬシリンジ「ニプロ」	管C横1
+_デクスメデトミジン静注液２００μｇ／５０ｍＬシリンジ「ニプロ」	管J横3
+_デスモプレシン点鼻スプレー２．５μｇ「フェリング」　１２５μｇ	調Q(冷)
+_デスモプレシン点鼻スプレー２．５μｇ「フェリング」　１２５μｇ	調Q横3左
+_テタノブリン筋注用２５０単位　２５０国際単位	調Q(冷)
+_テタノブリン筋注用２５０単位　２５０国際単位	調Q(冷)
+_テタノブリン筋注用２５０単位　２５０国際単位	調Q横4右
+_デトキソール静注液２ｇ　１０％２０ｍＬ	管F横2
+_デノサリン１輸液　５００ｍＬ	管A横1
+_デノサリン１輸液　５００ｍＬ	管M
+_デノシン点滴静注用５００ｍｇ	毒薬・向精神薬保管室入ってすぐ右棚上
+_デュピクセント皮下注３００ｍｇシリンジ　２ｍＬ	管I-b(冷)
+_デュピクセント皮下注３００ｍｇシリンジ　２ｍＬ	管I-b(冷)横1左
+_デュピクセント皮下注３００ｍｇペン　２ｍＬ	管I-b(冷)
+_デュピクセント皮下注３００ｍｇペン　２ｍＬ	管I-b(冷)横1左
+_テラルビシン注射用１０ｍｇ	管I-b(冷)
+_テラルビシン注射用１０ｍｇ	管I-b(冷)横1左
+_テリパラチド皮下注用５６．５μｇ「サワイ」　（溶解液付）	管D横3　(限定の段ボールの中)
+_テルモ生食　５００ｍＬ	管A横3
+_テルモ生食　５００ｍＬ	管M
+_ドキソルビシン塩酸塩注射用５０ｍｇ「ＮＫ」	管H横4
+_ドセタキセル点滴静注２０ｍｇ／１ｍＬ「ヤクルト」	毒薬・向精神薬保管室の化療薬品棚
+_ドパストン静注２５ｍｇ　０．２５％１０ｍＬ	管G横3
+_ドパストン静注５０ｍｇ　０．２５％２０ｍＬ	管G横3
+_ドパミン塩酸塩点滴２００ｍｇバッグＮＩＧ　０．１％２００ｍＬ	管C横2
+_ドパミン塩酸塩点滴２００ｍｇバッグ武田テバ　０．１％２００ｍＬ	管A横3
+_ドパミン塩酸塩点滴６００ｍｇバッグＮＩＧ　０．３％２００ｍＬ	管A横3
+_ドパミン塩酸塩点滴６００ｍｇバッグＮＩＧ　０．３％２００ｍＬ	管C横2
+_ドパミン塩酸塩点滴６００ｍｇバッグＮＩＧ　０．３％２００ｍＬ	管C横2
+_ドブトレックス注射液１００ｍｇ	管J横4
+_トブラシン注６０ｍｇ	管J横5
+_ドプラム注射液４００ｍｇ　２０ｍｇ	管J横4
+_トラバタンズ点眼液０．００４％	調Q(冷)
+_トラバタンズ点眼液０．００４％	調Q横3左
+_トランサミン注１０％　１０ｍＬ	管F横2
+_トリクロリールシロップ１０％	調Q(冷)
+_トリクロリールシロップ１０％	調Q横5左
+_ドロレプタン注射液２５ｍｇ　２．５ｍｇ	管H横4
+_トロンビン液モチダ　ソフトボトル１万　１０，０００単位１０ｍＬ	調Q(冷)
+_トロンビン液モチダ　ソフトボトル１万　１０，０００単位１０ｍＬ	調Q横5左
+_トロンビン液モチダ　ソフトボトル５千　５，０００単位５ｍＬ	調Q(冷)
+_トロンビン液モチダ　ソフトボトル５千　５，０００単位５ｍＬ	調Q横5左
+_ナファモスタットメシル酸塩注射用５０ｍｇ「ＮＩＧ」	管J横3
+_ナロキソン塩酸塩静注０．２ｍｇ「ＡＦＰ」　１ｍＬ	管J横5
+_ニカルジピン塩酸塩注射液２５ｍｇ「サワイ」　２５ｍＬ	管J横5
+_ニカルジピン塩酸塩注射液２ｍｇ「サワイ」　２ｍＬ	管J横3
+_ニコランジル点滴静注用１２ｍｇ「サワイ」	管I-a(冷)
+_ニコランジル点滴静注用１２ｍｇ「サワイ」	管I-a(冷)横3左
+_ニコランジル点滴静注用４８ｍｇ「サワイ」	管I-a(冷)
+_ニコランジル点滴静注用４８ｍｇ「サワイ」	管I-a(冷)横3左
+_ニトロール点滴静注５０ｍｇバッグ　０．０５％１００ｍＬ	管C横2
+_ニューモバックスＮＰシリンジ　０．５ｍＬ	調Q(冷)
+_ニューモバックスＮＰシリンジ　０．５ｍＬ	調Q横4右
+_ニューモバックスＮＰシリンジ　０．５ｍＬ	調Q横4右
+_ネオシネジンコーワ注１ｍｇ　０．１％１ｍＬ	管J横3
+_ネオフィリン注２５０ｍｇ　２．５％１０ｍＬ	管F横2
+_ネオレスタール注射液１０ｍｇ　１％１ｍＬ	管F横2
+_ノーベルバール静注用２５０ｍｇ	管H横4
+_ノバクトＭ静注用１０００単位　１，０００単位（溶解液付）	管D横3　(限定の段ボールの中)
+_ノルアドリナリン注１ｍｇ　０．１％１ｍＬ	管J横5
+_パーサビブ静注透析用シリンジ５ｍｇ　２ｍＬ	管I-b(冷)
+_パーサビブ静注透析用シリンジ５ｍｇ　２ｍＬ	管I-b(冷)横1左
+_ハーセプチン注射用１５０　１５０ｍｇ	管I-a(冷)
+_ハーセプチン注射用１５０　１５０ｍｇ	管I-a(冷)横3左
+_ハーセプチン注射用６０　６０ｍｇ	管I-a(冷)
+_ハーセプチン注射用６０　６０ｍｇ	管I-a(冷)横3左
+_ハイアミン液１０％	管N周囲(横側や天面上など)
+_ハイアミン液１０％	管N周囲(横側や天面上など)
+_ハイカリックＲＦ輸液　５００ｍＬ	管B横3
+_パクリタキセル注１００ｍｇ／１６．７ｍＬ「ＮＫ」	毒薬・向精神薬保管室の化療薬品棚
+_パクリタキセル注３０ｍｇ／５ｍＬ「ＮＫ」	毒薬・向精神薬保管室の化療薬品棚
+_パパベリン塩酸塩注４０ｍｇ「日医工」　４％１ｍＬ	管E横2
+_バビースモ硝子体内注射液１２０ｍｇ／ｍＬ　６ｍｇ０．０５ｍＬ	管I-b(冷)
+_バビースモ硝子体内注射液１２０ｍｇ／ｍＬ　６ｍｇ０．０５ｍＬ	管I-b(冷)横1左
+_ハプトグロビン静注２０００単位「ＪＢ」　２，０００単位１００ｍＬ	管I-b(冷)
+_ハプトグロビン静注２０００単位「ＪＢ」　２，０００単位１００ｍＬ	管I-b(冷)横5右
+_パム静注５００ｍｇ　２．５％２０ｍＬ	管F横2
+_パルタンＭ注０．２ｍｇ　０．０２％１ｍＬ	管J横4
+_バル筋注１００ｍｇ「ＡＦＰ」　１０％１ｍＬ	管I-a(冷)
+_バル筋注１００ｍｇ「ＡＦＰ」　１０％１ｍＬ	管I-a(冷)横3左
+_パロノセトロン静注０．７５ｍｇ／５ｍＬ「タイホウ」	管J横4
+_パントール注射液５００ｍｇ	管F横2
+_ハンプ注射用１０００　１，０００μｇ	管J横4
+_ヒアルロン酸Ｎａ０．８５眼粘弾剤１％「アルコン」　０．８５ｍＬ	管I-a(冷)
+_ヒアルロン酸Ｎａ０．８５眼粘弾剤１％「アルコン」　０．８５ｍＬ	管I-a(冷)
+_ヒアルロン酸Ｎａ０．８５眼粘弾剤１％「アルコン」　０．８５ｍＬ	管I-a(冷)横5右
+_ビーフリード輸液　５００ｍＬ	管M
+_ビームゲン注０．５ｍＬ	調Q(冷)
+_ビームゲン注０．５ｍＬ	調Q横4右
+_ヒーロンＶ眼粘弾剤２．３％シリンジ０．６ｍＬ	管I-a(冷)
+_ヒーロンＶ眼粘弾剤２．３％シリンジ０．６ｍＬ	管I-a(冷)横5右
+_ピヴラッツ点滴静注液１５０ｍｇ　６ｍＬ	管J横4
+_ビクシリン注射用０．２５ｇ　２５０ｍｇ	管F横2
+_ビクシリン注射用１ｇ	管F横2
+_ビケンＨＡ 注射剤 1瓶	調Q(冷)
+_ビケンＨＡ 注射剤 1瓶	毒薬・向精神薬保管室(冷)
+_ピシリバクタ静注用１．５ｇ	管F横3
+_ビソルボン注４ｍｇ　０．２％２ｍＬ	管F横3
+_ビタジェクト注キット　２筒	管F横2
+_ビタジェクト注キット　２筒	管F横6
+_ビタミンＣ注「フソー」－５００ｍｇ	管I-a(冷)
+_ビタミンＣ注「フソー」－５００ｍｇ	管I-a(冷)横1左
+_ビタメジン静注用	管F横3
+_ピトレシン注射液２０　２０単位	管I-a(冷)
+_ピトレシン注射液２０　２０単位	管I-a(冷)横4左
+_ピトレシン注射液２０　２０単位	管I-a(冷)横4左
+_ヒビテン液５％	管N周囲(横側や天面上など)
+_ピペラシリンＮａ注射用１ｇ「サワイ」	管F横3
+_ピペラシリンＮａ注射用２ｇ「サワイ」	管F横3
+_ビムパット点滴静注１００ｍｇ　１０ｍＬ	管H横5
+_ビムパット点滴静注１００ｍｇ　１０ｍＬ	管J横4
+_ビリスコピン点滴静注５０　１０．５５％１００ｍＬ	管J横6
+_ヒルトニン２ｍｇ注射液　１ｍＬ	管F横3
+_ファーストシン静注用１ｇ	管F横3
+_ファモチジン静注２０ｍｇ「日新」　２０ｍＬ	管F横3
+_フィジオ１４０輸液　５００ｍＬ	管A横1
+_フィジオ１４０輸液　５００ｍＬ	管M
+_フィニバックス点滴静注用０．２５ｇ　２５０ｍｇ	管F横4
+_ブイフェンド２００ｍｇ静注用	管H横5
+_フィブラストスプレー５００　５００μｇ（溶解液付）	調Q(冷)
+_フィブラストスプレー５００　５００μｇ（溶解液付）	調Q横3左
+_フィブロガミンＰ静注用　２４０国際単位（溶解液付）	管I-a(冷)
+_フィブロガミンＰ静注用　２４０国際単位（溶解液付）	管I-a(冷)横4左
+_フィルグラスチムＢＳ注７５μｇシリンジ「ＮＫ」　０．３ｍＬ	管I-a(冷)
+_フィルグラスチムＢＳ注７５μｇシリンジ「ＮＫ」　０．３ｍＬ	管I-a(冷)横4左
+_フェインジェクト静注５００ｍｇ　１０ｍＬ	管F横4
+_フェジン静注４０ｍｇ　２ｍＬ	管F横4
+_フェソロデックス筋注２５０ｍｇ　５ｍＬ	管I-b(冷)
+_フェソロデックス筋注２５０ｍｇ　５ｍＬ	管I-b(冷)横2左
+_フェノバール注射液１００ｍｇ　１０％１ｍＬ	管J横5
+_ブチルスコポラミン臭化物注２０ｍｇシリンジ「ＮＰ」　１ｍＬ	管J横6
+_ブドウ糖注射液「ニッシン」５０％　２０ｍＬ	管F横4
+_プラリア皮下注６０ｍｇシリンジ　１ｍＬ	管I-b(冷)
+_プラリア皮下注６０ｍｇシリンジ　１ｍＬ	管I-b(冷)横2左
+_ブリカニール皮下注０．２ｍｇ	管J横4
+_プリズバインド静注液２．５ｇ　５０ｍＬ	管I-a(冷)
+_プリズバインド静注液２．５ｇ　５０ｍＬ	管I-a(冷)横5左
+_ブリディオン静注２００ｍｇ　２ｍＬ	管F横4
+_プリンペラン注射液１０ｍｇ　０．５％２ｍＬ	管F横4
+_フルオロウラシル注１０００ｍｇ「トーワ」　１，０００ｍｇ	管I-b(冷)
+_フルオロウラシル注１０００ｍｇ「トーワ」　１，０００ｍｇ	管I-b(冷)横2左
+_フルオロウラシル注２５０ｍｇ「トーワ」	管I-b(冷)
+_フルオロウラシル注２５０ｍｇ「トーワ」	管I-b(冷)横2左
+_フルスルチアミン注５０ｍｇ「日新」　２０ｍＬ	管F横4
+_フルマゼニル注射液０．５ｍｇ「Ｆ」　５ｍＬ	管J横3
+_フルマリン静注用１ｇ	管F横5
+_ブレビブロック注１００ｍｇ　１０ｍＬ	管J横4
+_プロギノン・デポー筋注１０ｍｇ	管F横5
+_プロゲデポー筋注１２５ｍｇ	管F横5
+_プロゲホルモン筋注用１０ｍｇ	管F横5
+_プロスタルモン・Ｆ注射液１０００　１ｍｇ１ｍＬ	管J横4
+_プロスタンディン注射用２０μｇ	管H横5
+_プロスタンディン注射用２０μｇ	管J横4
+_プロタノールＬ注０．２ｍｇ　０．０２％１ｍＬ	管J横4
+_プロタミン硫酸塩静注１００ｍｇ「モチダ」　１％	管F横5
+_プロナーゼＭＳ　２０，０００単位	管N横3
+_プロポフォール静注１％２０ｍＬ「マルイシ」　２００ｍｇ	管J横3
+_プロポフォール静注１％５０ｍＬ「マルイシ」　５００ｍｇ	管J横5
+_ブロムヘキシン塩酸塩吸入液０．２％「タイヨー」	管N横2
+_フロリードＦ注２００ｍｇ　１％２０ｍＬ	管D横3　(限定の段ボールの中)
+_ベオビュ硝子体内注射用キット１２０ｍｇ／ｍＬ　６ｍｇ０．０５ｍＬ	管I-b(冷)
+_ベオビュ硝子体内注射用キット１２０ｍｇ／ｍＬ　６ｍｇ０．０５ｍＬ	管I-b(冷)横3右
+_ベクティビックス点滴静注４００ｍｇ　２０ｍＬ	管I-b(冷)
+_ベクティビックス点滴静注４００ｍｇ　２０ｍＬ	管I-b(冷)横4右
+_ベクルリー点滴静注用１００ｍｇ	管F横6
+_ベナンバックス注用３００ｍｇ	管D横3　(限定の段ボールの中)
+_ベネトリン吸入液０．５％	管N横2
+_ベノキシール点眼液０．４％	管N横2
+_ヘパリンＮａロック１００Ｕ／ｍＬシリンジオーツカ１０ｍＬ　１千Ｕ	管D横1
+_ヘパリンＮａロック１００Ｕ／ｍＬシリンジオーツカ１０ｍＬ　１千Ｕ	管F横5
+_ヘパリンＮａ注５千単位／５ｍＬ「モチダ」　５，０００単位	管F横5
+_ヘパリンＮａ透析用２５０Ｕ／ｍＬシリンジ２０ｍＬニプロ　５千Ｕ	管F横6
+_ヘパリンカルシウム皮下注５千Ｕ／０．２ｍＬシリンジモチダ　５千Ｕ	管F横5
+_ヘプタバックス－２水性懸濁注シリンジ０．５ｍＬ	調Q(冷)
+_ヘプタバックス－２水性懸濁注シリンジ０．５ｍＬ	調Q横5右
+_ベリプラストＰ　コンビセット　組織接着用　１ｍＬ２キット	管I-b(冷)
+_ベリプラストＰ　コンビセット　組織接着用　１ｍＬ２キット	管I-b(冷)横5右
+_ベリプラストＰ　コンビセット　組織接着用　３ｍＬ２キット	管I-b(冷)
+_ベリプラストＰ　コンビセット　組織接着用　３ｍＬ２キット	管I-b(冷)横5右
+_ベリプラストＰ　コンビセット　組織接着用　５ｍＬ２キット	管I-b(冷)
+_ベリプラストＰ　コンビセット　組織接着用　５ｍＬ２キット	管I-b(冷)横5右
+_ベルケイド注射用３ｍｇ	毒薬・向精神薬保管室の化療薬品棚
+_ベルベゾロンＦ点眼・点鼻液	調Q(冷)
+_ベルベゾロンＦ点眼・点鼻液	調Q横2左
+_ホストイン静注７５０ｍｇ　１０ｍＬ	管I-b(冷)
+_ホストイン静注７５０ｍｇ　１０ｍＬ	管I-b(冷)横2左
+_ホスミシンＳ静注用２ｇ	管G横1
+_ボスミン外用液０．１％	管N横2
+_ボスミン注１ｍｇ　０．１％１ｍＬ	管J横5
+_ポビドンヨードゲル１０％「ＶＴＲＳ」	管N横3
+_ポビドンヨードゲル１０％「明治」	管N横3
+_ポビドンヨード消毒用液１０％「ＮＰ」	管N横4
+_ポピヨドンスクラブ７．５％	管N周囲(横側や天面上など)
+_ホリゾン注射液１０ｍｇ	管G横1
+_ポリドカスクレロール０．５％注２ｍＬ	管J横6
+_ボルベン輸液６％　５００ｍＬ	管A横1
+_ボルベン輸液６％　５００ｍＬ	管M
+_ボンビバ静注１ｍｇシリンジ　１ｍＬ	管J横3
+_マーカイン注脊麻用０．５％高比重　４ｍＬ	管J横3
+_マーカイン注脊麻用０．５％等比重　４ｍＬ	管J横3
+_マイトマイシン眼科外用液用２ｍｇ	毒薬・向精神薬保管室の化療薬品棚
+_マグセント注１００ｍＬ	管G横1
+_マグセント注１００ｍＬ	管G横3
+_マグセント注１００ｍＬ	管G横3
+_マスキン水　０．０２％	管N横5
+_マスキン水　０．０５％	管N横5
+_マスキン水　０．１％	管N横5
+_マスキン水　０．５％	管N横5
+_マンニットールＳ注射液　３００ｍＬ	管D横4
+_ミールビック 注射剤 1本	調Q(冷)
+_ミールビック 注射剤 1本	調Q横4右
+_ミオテクター冠血管注　１瓶１管	管D横4
+_ミカファンギンＮａ点滴静注用５０ｍｇ「ニプロ」	管J横5
+_ミカファンギンＮａ点滴静注用５０ｍｇ「ニプロ」	管J横5
+_ミダゾラム注１０ｍｇ「サンド」　２ｍＬ	管G横1
+_ミチーガ皮下注用６０ｍｇシリンジ	管D横3　(限定の段ボールの中)
+_ミノサイクリン塩酸塩点滴静注用１００ｍｇ「日医工」	管G横1
+_ミラクリッド注射液１０万単位　１００，０００単位２ｍＬ	管G横1
+_ミラクリッド注射液５万単位　５０，０００単位１ｍＬ	管G横1
+_ミリスロール注５ｍｇ／１０ｍＬ	管J横5
+_ミルセラ注シリンジ１５０μｇ　０．３ｍＬ	管I-b(冷)
+_ミルセラ注シリンジ１５０μｇ　０．３ｍＬ	管I-b(冷)横4右
+_ミルセラ注シリンジ２００μｇ　０．３ｍＬ	管I-b(冷)
+_ミルセラ注シリンジ２００μｇ　０．３ｍＬ	管I-b(冷)横4右
+_ミルリーラ注射液１０ｍｇ　１０ｍＬ	管J横4
+_ミレーナ５２ｍｇ	管N横3
+_メイロン静注７％　２０ｍＬ	管G横2
+_メイロン静注７％　２５０ｍＬ	管D横3
+_メチコバール注射液５００μｇ　０．５ｍｇ	管G横2
+_メチルエルゴメトリンマレイン酸塩注０．２ｍｇＦ　０．０２％１ｍＬ	管J横5
+_メプチン吸入液ユニット０．３ｍＬ　０．０１％	管N横2
+_メロペネム点滴静注用０．５ｇ「ＮＰ」　５００ｍｇ	管G横2
+_モリヘパミン点滴静注　５００ｍＬ	管D横2
+_ユベラ軟膏	調Q(冷)
+_ユベラ軟膏	調Q横4左
+_ラクツロースシロップ６５％「タカタ」	調Q(冷)
+_ラクツロースシロップ６５％「タカタ」	調Q横4左
+_ラクテックＤ輸液　５００ｍＬ	管A横2
+_ラクテックＤ輸液　５００ｍＬ	管M
+_ラジカット点滴静注バッグ３０ｍｇ　１００ｍＬ	管D横3
+_ラシックス注２０ｍｇ	管G横2
+_ラニビズマブＢＳ硝子体内注射用キット１０　０．５ｍｇ０．０５ｍＬ	管I-b(冷)
+_ラニビズマブＢＳ硝子体内注射用キット１０　０．５ｍｇ０．０５ｍＬ	管I-b(冷)横3左
+_ラピアクタ点滴静注液バッグ３００ｍｇ　６０ｍＬ	管D横3　(限定の段ボールの中)
+_ランマーク皮下注１２０ｍｇ　１．７ｍＬ	管I-b(冷)
+_ランマーク皮下注１２０ｍｇ　１．７ｍＬ	管I-b(冷)横2左
+_リクラスト点滴静注液５ｍｇ　１００ｍＬ	管D横3　(限定の段ボールの中)
+_リコモジュリン点滴静注用１２８００　１２，８００単位	管G横2
+_リスモダンＰ静注５０ｍｇ　５ｍＬ	管J横5
+_リズモンＴＧ点眼液０．５％	調Q(冷)
+_リズモンＴＧ点眼液０．５％	調Q横3左
+_リドカイン塩酸塩ビスカス２％「日新」	管N横3
+_リドカイン点滴静注液１％「タカタ」　２００ｍＬ	管C横2
+_リネゾリド点滴静注液６００ｍｇ「明治」　３００ｍＬ	管G横3
+_リピオドール４８０注１０ｍＬ	管J横6
+_リュープリンＰＲＯ注射用キット２２．５ｍｇ	管J横6
+_リュープリンＰＲＯ注射用キット２２．５ｍｇ	管J横6
+_リュープリンＳＲ注射用キット１１．２５ｍｇ	管J横6
+_リュープリン注射用１．８８ｍｇ　（懸濁用液付）	管J横6
+_リュープロレリン酢酸塩注射用キット１．８８ｍｇ「あすか」	管J横6
+_リュープロレリン酢酸塩注射用キット３．７５ｍｇ「あすか」	管J横6
+_リュープロレリン酢酸塩注射用キット３．７５ｍｇ「あすか」	管J横6
+_リンデロン注４ｍｇ（０．４％）	管I-a(冷)
+_リンデロン注４ｍｇ（０．４％）	管I-a(冷)横4左
+_リン酸２カリウム注２０ｍＥｑキット「テルモ」　０．５モル２０ｍＬ	管D横3　(限定の段ボールの中)
+_ルセンティス硝子体注キット１０ｍｇ／ｍＬ　０．５ｍｇ０．０５ｍＬ	管I-b(冷)
+_ルセンティス硝子体注キット１０ｍｇ／ｍＬ　０．５ｍｇ０．０５ｍＬ	管I-b(冷)横3左
+_レパーサ皮下注４２０ｍｇオートミニドーザー　３．５ｍＬ	調Q(冷)
+_レパーサ皮下注４２０ｍｇオートミニドーザー　３．５ｍＬ	調Q横5右
+_レペタン注０．２ｍｇ	毒薬・向精神薬保管室入ってすぐ右棚下
+_レボホリナート点滴静注用１００ｍｇ「ヤクルト」	毒薬・向精神薬保管室の化療薬品棚
+_レボホリナート点滴静注用２５ｍｇ「ヤクルト」	毒薬・向精神薬保管室の化療薬品棚
+_レミケード点滴静注用１００　１００ｍｇ	管I-b(冷)
+_レミケード点滴静注用１００　１００ｍｇ	管I-b(冷)横3左
+_ロクロニウム臭化物静注液２５ｍｇ／２．５ｍＬ「Ｆ」	毒薬・向精神薬保管室入ってすぐ右棚上
+_ロクロニウム臭化物静注液５０ｍｇ／５．０ｍＬ「Ｆ」　５ｍＬ	毒薬・向精神薬保管室入ってすぐ右棚上
+_ロセフィン静注用０．５ｇ　５００ｍｇ	管G横2
+_ロタリックス内用液 包装小 1本	調Q(冷)
+_ロタリックス内用液 包装小 1本	調Q横4右
+_ロナプリーブ(要検討)	調Q横5右
+_ロピオン静注５０ｍｇ　５ｍＬ	管J横3
+_ロミプレート皮下注２５０μｇ調製用	管I-b(冷)
+_ロミプレート皮下注２５０μｇ調製用	管I-b(冷)横1右
+_ワゴスチグミン注０．５ｍｇ　０．０５％１ｍＬ	管D横3　(限定の段ボールの中)
+_ワソラン静注５ｍｇ　０．２５％２ｍＬ	管J横5
+_ヱフェドリン「ナガヰ」注射液４０ｍｇ　４％１ｍＬ	管H横2
+_一般診断用精製ツベルクリン（ＰＰＤ）１人用　０．２５μｇ溶解液付	調Q横4右
+_塩酸バンコマイシン点滴静注用０．５ｇ（ＯＫ）	管G横3
+_塩酸メピバカイン注ＰＢ１％　１０ｍＬ	管J横3
+_乾燥ＨＢグロブリン筋注用１千Ｕニチヤク　１千Ｕ５ｍＬ（溶解液付）	調Q横4右
+_乾燥ＨＢグロブリン筋注用２００単位「ニチヤク」　１ｍＬ溶解液付	調Q横4右
+_乾燥まむしウマ抗毒素注射用６千Ｕ　ＫＭＢ　各６千Ｕ入（溶解液付）	調Q横4右
+_乾燥まむし抗毒素“化血研”　各６，０００単位入（溶解液付）	調Q横4右
+_乾燥弱毒生おたふくかぜワクチン「タケダ」 注射剤 1瓶	調Q横4右
+_乾燥弱毒生水痘ワクチン「ビケン」 注射剤 1本	調Q横4右
+_乾燥弱毒生風しんワクチン「タケダ」 注射剤 1瓶	調Q横4右
+_強力ネオミノファーゲンシーＰ静注２０ｍＬ	管E横3
+_献血アルブミン５％静注１２．５ｇ／２５０ｍＬ「タケダ」	管G横4
+_献血アルブミン５％静注１２．５ｇ／２５０ｍＬ「タケダ」	管G横4
+_献血グロベニン－Ｉ静注用２５００ｍｇ　２．５ｇ５０ｍＬ溶解液付	管G横4
+_献血グロベニン－Ｉ静注用５０００ｍｇ　５ｇ１００ｍＬ（溶解液付）	管G横4
+_献血ノンスロン１５００注射用　１，５００単位（溶解液付）	管G横4
+_抗Ｄ人免疫グロブリン筋注用１千倍「ＪＢ」　１千倍（溶解液付）	調Q横2右
+_硝酸イソソルビド注５ｍｇ／１０ｍＬ「タカタ」　０．０５％	管E横2
+_硝酸イソソルビド注５ｍｇ／１０ｍＬ「タカタ」　０．０５％	管E横4
+_酢酸「ケンエー」	管N周囲(横側や天面上など)
+_酢酸「ケンエー」	管N周囲(横側や天面上など)
+_水溶性プレドニン２０ｍｇ	管F横5
+_生食注シリンジ「ＮＰ」　１０ｍＬ	管D横1
+_生食注シリンジ「ＮＰ」　２０ｍＬ	管D横1
+_生食注シリンジ「ＮＰ」　２０ｍＬ	管D周囲(横側や天面上など)
+_生食注シリンジ「ＮＰ」　２０ｍＬ	管D周囲(横側や天面上など)
+_生食注シリンジ「ＮＰ」　２０ｍＬ	管E横6
+_生食注シリンジ５０ｍＬ「ニプロ」	管D周囲(横側や天面上など)
+_生理食塩液「フソー」　５ｍＬ	管E横4
+_生理食塩液ＰＬ「フソー」　２０ｍＬ	管E横4
+_生理食塩液ＰＬ「フソー」　５０ｍＬ	管A横1
+_生理食塩液ＰＬ「フソー」　５０ｍＬ	管B横1
+_生理食塩液バッグ「フソー」　１．５Ｌ	管K横3
+_生理食塩液バッグ「フソー」　１Ｌ	管K横3
+_生理食塩液バッグ「フソー」　２５０ｍＬ	管A横1
+_生理食塩液バッグ「フソー」　２５０ｍＬ	管K横3
+_静注用キシロカイン２％　５ｍＬ	管H横3
+_静注用マグネゾール２０ｍＬ	管G横1
+_赤十字アルブミン２５％静注１２．５ｇ／５０ｍＬ	管G横4
+_大塚塩カル注２％　２０ｍＬ	管E横2
+_大塚蒸留水　１Ｌ	管B周囲(横側や天面上など)
+_大塚蒸留水　５００ｍＬ	管B横3
+_大塚蒸留水　５００ｍＬ	管A周囲(横側や天面上など)
+_大塚蒸留水　５００ｍＬ	管K横2
+_大塚食塩注１０％　２０ｍＬ	管E横3
+_大塚生食注　１００ｍＬ	管A横1
+_大塚生食注　１００ｍＬ	管B横1
+_大塚生食注　１Ｌ	管B周囲(横側や天面上など)
+_大塚生食注　１Ｌ	管K横1
+_大塚生食注　５００ｍＬ	管B周囲(横側や天面上など)
+_大塚生食注　５００ｍＬ	管K横2
+_大塚生食注２ポート１００ｍＬ	管A横1
+_大塚生食注２ポート１００ｍＬ	管B横1
+_大塚糖液１０％　２０ｍＬ	管F横4
+_大塚糖液１０％　５００ｍＬ	管C横3
+_大塚糖液１０％　５００ｍＬ	管C横4
+_大塚糖液２０％　２０ｍＬ	管F横4
+_大塚糖液５％　１００ｍＬ	管A横1
+_大塚糖液５％　１００ｍＬ	管C横3
+_大塚糖液５％　２０ｍＬ	管F横4
+_大塚糖液５％　２５０ｍＬ	管A横2
+_大塚糖液５％　２５０ｍＬ	管C横3
+_大塚糖液５％　５００ｍＬ	管C横3
+_大塚糖液５％　５０ｍＬ	管A横1
+_大塚糖液５％　５０ｍＬ	管C横3
+_大塚糖液５０％　２００ｍＬ	管C横4
+_炭酸水素Ｎａ静注１．２６％バッグ「フソー」　１Ｌ	管D横4
+_注射用エンドキサン１００ｍｇ	管I-a(冷)
+_注射用エンドキサン１００ｍｇ	管I-a(冷)横2右
+_注射用タゴシッド２００ｍｇ	管J横4
+_注射用パニマイシン１００ｍｇ	管D横3　(限定の段ボールの中)
+_注射用フサン１０　１０ｍｇ	管J横4
+_注射用ペニシリンＧカリウム１００万単位	管F横5
+_注射用メソトレキセート５０ｍｇ	管J横3
+_注射用水「フソー」　５ｍＬ	管G横2
+_注射用水ＰＬ「フソー」　１００ｍＬ	管B横3
+_注射用水ＰＬ「フソー」　２０ｍＬ	管G横2
+_沈降破傷風トキソイド「生研」　０．５ｍＬ	調Q(冷)
+_沈降破傷風トキソイド「生研」　０．５ｍＬ	調Q横4右
+_日点アトロピン点眼液１％　５ｍＬ	調Q(冷)
+_日点アトロピン点眼液１％　５ｍＬ	調Q横3左
+_破傷風トキソイド「生研」　０．５ｍＬ	「沈降破傷風トキソイド「生研」　０．５ｍＬ」を見よ
+_無水エタノール注「フソー」 注射剤 1管	管G横1
+_硫酸Ｍｇ補正液１ｍＥｑ／ｍＬ　０．５モル２０ｍＬ	管D横3　(限定の段ボールの中)
+_終了	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`;
+
+//let basyoAry = basyo.split('\n');
+let basyoAry = basyo.split('_');
+//textBox.value=basyoAry[5] ;
+//textBox.value=basyoAry;
+
+//検索語句変換辞書
+let jisyo = `_開始	VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+_阿蘇山＝ワソラン
+_いかの事件＝ニカルジピン
+_三日月ピン＝ニカルジピン
+_まそらん＝ワソラン
+_バスラン＝ワソラン
+_ミカルリピん＝ニカルジピン
+_マスガン＝ワソラン
+_まぁそらん＝ワソラン
+_あそうなん＝ワソラン
+_まそら＝ワソラン
+_バスガン＝ワソラン
+_早稲田＝ワソラン
+_うわー相談＝ワソラン
+_マストダウン＝ワソラン
+_ファスナー＝ワソラン
+_マツダ＝ワソラン
+_いや相談＝ワソラン
+_は相談＝ワソラン
+_わー相談＝ワソラン
+_わ相談＝ワソラン
+_松山＝ワソラン
+_和相談＝ワソラン
+_ガソリン＝ワソラン
+_マゼラン＝ワソラン
+_朝顔＝ワソラン
+_まそんな＝ワソラン
+_後任＝アトニン
+_増田＝ワソラン
+_イカの時期＝ニカルジピン
+_セフトリアクション＝セフトリアキソン
+_生殖＝生食
+_生殖＝生理食塩
+_終了	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`;
+
+let jisyoAry = jisyo.split('_');
+
+//textBox.value=jisyoAry;
+
+  </script>
+</body>
+</html>
